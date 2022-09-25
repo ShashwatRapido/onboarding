@@ -1,0 +1,16 @@
+version: "3"
+services:
+  product-reviews-container:
+    build:
+      context: ./product-reviews/
+      dockerfile: Dockerfile
+    image: product-reviews:1.0
+  product-details-container:
+    build:
+      context: ./product-details/
+      dockerfile: Dockerfile
+      args:
+        - review_svc_host=http://product-reviews-container:8080
+    image: product-details:1.0
+    ports:
+      - 9090:9090

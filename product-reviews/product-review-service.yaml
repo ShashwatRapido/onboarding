@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: product-review-service
+spec:
+  selector:
+    tier: product-reviews
+  ports:
+  - name: product-review-service-port
+    protocol: TCP
+    port: 80
+    targetPort: 8080

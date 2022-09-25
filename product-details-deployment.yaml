@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-details-deployment
+  labels:
+    app: product-details
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: product-details
+  template:
+    metadata:
+      labels:
+        app: product-details
+    spec:
+      containers:
+      - name: product-details-container
+        image: shashwat623/product-details:1.0
+        ports:
+        - containerPort: 9090
+        env:
+        - name: REVIEW_SVC_HOST
+          value: http://product-review-service:8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: product-details-service
+spec:
+  selector:
+    app: product-details
+  type: LoadBalancer    
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 9090
+      nodePort: 30000

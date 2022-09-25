@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-review-deployment
+  labels:
+    app: product-review
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: product-review
+  template:
+    metadata:
+      labels:
+        app: product-review
+    spec:
+      containers:
+      - name: product-review-container
+        image: shashwat623/product-reviews:1.0
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: product-review-service
+spec:
+  selector:
+    app: product-review
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

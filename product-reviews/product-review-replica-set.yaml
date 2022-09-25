@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: product-reviews
+  labels:
+    app: product-reviews
+    tier: product-reviews
+spec:
+  # modify replicas according to your case
+  replicas: 2
+  selector:
+    matchLabels:
+      tier: product-reviews
+  template:
+    metadata:
+      labels:
+        tier: product-reviews
+    spec:
+      containers:
+      - name: product-reviews-container
+        image: shashwat623/product-reviews:1.0
